@@ -1,0 +1,65 @@
+﻿@page
+@model ProjectManagement_Assignment02.Pages.Admin.Projects.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Project</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="UpdateProjectRequest.Id" />
+            <div class="form-group">
+                <label asp-for="UpdateProjectRequest.Name" class="control-label"></label>
+                <input asp-for="UpdateProjectRequest.Name" class="form-control" />
+                <span asp-validation-for="UpdateProjectRequest.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UpdateProjectRequest.Customer" class="control-label"></label>
+                <input asp-for="UpdateProjectRequest.Customer" class="form-control" />
+                <span asp-validation-for="UpdateProjectRequest.Customer" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UpdateProjectRequest.GroupId" class="control-label"></label>
+                <select asp-for="UpdateProjectRequest.GroupId" class="form-control" asp-items="Model.ListGroupId"></select>
+            </div>          
+            <div class="form-group">
+                <label asp-for="UpdateProjectRequest.Employees" class="control-label"></label>
+                @* <select multiple asp-for="CreateNewProjectRequest.Employees" asp-items="Model.listMember" class="form-control dropdown">
+                </select> *@
+                <select asp-for="UpdateProjectRequest.Employees" class="form-control" asp-items="Model.listMember"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="UpdateProjectRequest.Status" class="control-label"></label>
+                <select asp-for="UpdateProjectRequest.Status" class="form-control" value asp-items="Model.Status"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="UpdateProjectRequest.StartDate" class="control-label"></label>
+                <input asp-for="UpdateProjectRequest.StartDate" class="form-control" />
+                <span asp-validation-for="UpdateProjectRequest.StartDate" class="text-danger"></span>
+                <span class="text-danger">@ViewData["Message"]</span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UpdateProjectRequest.EndDate" class="control-label"></label>
+                <input asp-for="UpdateProjectRequest.EndDate" class="form-control" />
+                <span asp-validation-for="UpdateProjectRequest.EndDate" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-3">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

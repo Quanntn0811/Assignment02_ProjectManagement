@@ -1,0 +1,64 @@
+﻿@page
+@using Newtonsoft.Json
+@using ProjectManagement_BusinessObjects.Entities
+@model ProjectManagement_Assignment02.Pages.Admin.Groups.IndexModel
+
+@{
+    ViewData["Title"] = "List group";
+
+    string userString = HttpContext.Session.GetString("user");
+    User user = null;
+
+    if (!string.IsNullOrEmpty(userString))
+    {
+        user = JsonConvert.DeserializeObject<User>(userString);
+    }
+}
+
+<h1 class="mb-3">Group</h1>
+
+<div class="d-flex align-items-center justify-content-between">
+    @if (user.Role == "Admin")
+    {
+        <a class="text-decoration-none p-2 border ms-auto" asp-page="Create">Create New</a>
+    }
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Group[0].Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Group[0].GroupLeader.Visa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Group[0].GroupLeader)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Group)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GroupLeader.Visa)
+                </td>
+                <td>
+                    @item.GroupLeader.FirstName @item.GroupLeader.LastName
+                </td>
+                @if (user.Role == "Admin")
+                {
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
